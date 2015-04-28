@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="scodaFacesApp" ng-controller="MainCtrl">
+<head>
+  <meta charset="utf-8" />
+  <title>Faces of School of Data</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script src="src/app.js"></script>
+</head>
+
+<body>
+  <div>
+  <p>
+    <a href="#">Members</a>
+    <a href="#groups">Groups</a>
+  </p>
+  <div>
+    <div ng-view></div>
+  </div>
+</body>
+</html>
