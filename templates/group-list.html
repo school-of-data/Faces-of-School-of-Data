@@ -1,7 +1,7 @@
-<div>
+<div ng-controller="GroupCtrl">
   <ul>
-   <li ng-repeat="(ix, group) in groupList">
-     <h2><a href="#group/{{ix}}">{{group.gsx$group.$t}}</a></h2>
+   <li ng-repeat="(ixg, group) in groupList">
+     <h2><a href="#group/{{ixg}}">{{group.gsx$group.$t}}</a></h2>
    </li>
   </ul>
 </div> 

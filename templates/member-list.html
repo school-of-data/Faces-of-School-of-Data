@@ -1,7 +1,12 @@
-<div>
-  <ul>
-   <li ng-repeat="(ix, member) in members">
-     <h2><a href="#member/{{ix}}">{{member.gsx$name.$t}}</a></h2>
-   </li>
-  </ul>
-</div> 
+<div class="large-12 columns">
+	<h4>Members</h4>
+	<p>Click on each image to view the member profile</p>
+	<ul class="clearing-thumbs" data-clearing="">
+		<li ng-repeat="(ix, member) in memberList">
+		<a href="#member/{{ix}}">
+			<div class="img-member"><img ng-src="{{member.gsx$photo.$t}}" /></div>
+			{{member.gsx$name.$t}}
+		</a>
+		</li>		
+	</ul>
+</div>

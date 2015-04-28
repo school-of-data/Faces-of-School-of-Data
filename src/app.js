@@ -9,7 +9,7 @@ scodaFacesApp.config(
             .when(
                 "/", //Members
                 {
-                   controller: 'MainCtrl',
+                   controller: 'MembersCtrl',
                    templateUrl: 'templates/member-list.html'
                 }
             )
@@ -42,78 +42,53 @@ scodaFacesApp.config(
 
 // Faces of School of Data main Angularjs controller. 
 scodaFacesApp.controller('MainCtrl', 
-  function($scope,$http){
+  function($scope, $http){
     //The spreadsheet loaded as default
     $scope.spreadsheet = "1l8HkzCSeEiyzjFALpmOq5sFlfx514vkP7liM8Tjxt4w";
-    $scope.get_data = function(spreadsheet){      
+    $scope.itemsList = {'members':[],'groups':[]};
+    $scope.get_data = function(spreadsheet, worksheet, type){      
       // Using the http class to fetch data.
       $http({
-        url: 'https://spreadsheets.google.com/feeds/list/'+spreadsheet+'/1/public/values?alt=json',
+        url: 'https://spreadsheets.google.com/feeds/list/'+spreadsheet+'/'+worksheet+'/public/values?alt=json',
         method: "GET"
       })
       .then(function(response) {
         // On success, put the response into the $scope.summary variable. 
         $scope.summary = response;        
-        //Reset the members lists. 
-        $scope.members = [];
         //load the first list with all the members.         
         for (i = 0; i < $scope.summary.data.feed.entry.length; i++) { 
-            $scope.members.push($scope.summary.data.feed.entry[i]);
+            $scope.itemsList[type].push($scope.summary.data.feed.entry[i]);
         }
       }
     );
   }
+  
   //load default spreadsheet the first time the page and controller are loaded.   
-  $scope.get_data($scope.spreadsheet);
+  $scope.get_data($scope.spreadsheet,1,'members'); // Load members worksheet
+  $scope.get_data($scope.spreadsheet,2,'groups'); // Load groups worksheet
+
 
 });
 
+scodaFacesApp.controller('MembersCtrl', 
+    function($scope, $routeParams){    
+    $scope.memberList = $scope.itemsList['members'];
+});
 
-// Groups 
+
 scodaFacesApp.controller('GroupsCtrl', 
-  function($scope,$http){
-    //The spreadsheet loaded as default
-    $scope.spreadsheet = "1l8HkzCSeEiyzjFALpmOq5sFlfx514vkP7liM8Tjxt4w";
-    $scope.get_data = function(spreadsheet){
-      // Using the http class to fetch data. 
-      $http({
-        url: 'https://spreadsheets.google.com/feeds/list/'+spreadsheet+'/2/public/values?alt=json',
-        method: "GET"
-      })
-      .then(function(response) {        
-        // On success, put the response into the $scope.summary variable. 
-        $scope.summary = response;
-        //Reset the members lists. 
-        $scope.groupList = [];
-        //load the first list with all the groups.         
-        for (i = 0; i < $scope.summary.data.feed.entry.length; i++) { 
-            $scope.groupList.push($scope.summary.data.feed.entry[i]);
-        }
-      }
-    );
-  }
-  //load default spreadsheet the first time the page and controller are loaded.   
-  $scope.get_data($scope.spreadsheet);
-  console.log($scope.groupList);
-
+    function($scope){    
+    $scope.groupList = $scope.itemsList['groups'];
 });
 
 // Member profile 
 scodaFacesApp.controller('MemberCtrl', 
-  function($scope, $route, $routeParams){
-    
-    var member = $scope.members[$routeParams.id];
-
-    $scope.name = member.gsx$name.$t;
-    $scope.photo = member.gsx$photo.$t;
-    $scope.group = member.gsx$group.$t;
-
+  function($scope, $routeParams){    
+    $scope.member = $scope.itemsList['members'][$routeParams.id];
 });
 
 // Group profile 
-scodaFacesApp.controller('GroupCtrl', 
-  function($scope, $route, $routeParams){
-    
-    console.log($scope.groupList);
-
+scodaFacesApp.controller('GroupCtrl',
+  function($scope, $routeParams){    
+    $scope.group = $scope.itemsList['groups'][$routeParams.id];
 });
