@@ -64,8 +64,8 @@ scodaFacesApp.controller('MainCtrl',
   }
   
   //load default spreadsheet the first time the page and controller are loaded.   
-  $scope.get_data($scope.spreadsheet,1,'members'); // Load members worksheet
-  $scope.get_data($scope.spreadsheet,2,'groups'); // Load groups worksheet
+  $scope.get_data($scope.spreadsheet,2,'members'); // Load members worksheet
+  $scope.get_data($scope.spreadsheet,1,'groups'); // Load groups worksheet
 
 
 });
@@ -77,8 +77,9 @@ scodaFacesApp.controller('MembersCtrl',
 
 
 scodaFacesApp.controller('GroupsCtrl', 
-    function($scope){    
+    function($scope){
     $scope.groupList = $scope.itemsList['groups'];
+    console.log($scope.groupList)
 });
 
 // Member profile 
