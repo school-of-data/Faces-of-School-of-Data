@@ -1,5 +1,21 @@
-<div>  
-  <img width="100px" ng-src="{{photo}}">
-  <h1>{{member.gsx$name.$t}}</h1>
-  <h2>{{member.gsx$group.$t}}</h2>
-</div> 
+<div class="container">
+	<div class="section">
+	<div class="row">
+		<div class="col s12">
+			<h3>{{ member.gsx$fullname.$t }}
+			<span>({{ member.gsx$yourcityofresidence.$t }} / {{ member.gsx$yourcountryofresidence.$t }})</span>
+			</h3>
+			<h5><p>"{{member.gsx$personalquote.$t}}"</p></h5>
+		</div>		
+	</div>
+		<div class="row">  
+			<div class="col s3">
+				<div><img ng-src="http://www.tagetik.com/intouch2015/user.png" /></div>
+			</div>
+			<div class="col s9">
+	  			<p>{{member.gsx$shortbiography.$t}}</p>
+	  			<h5>{{member.gsx$nameoftheorganisationhostingtheschoolofdatainstance.$t}}</h5>
+			</div>
+		</div> 
+	</div>
+</div>

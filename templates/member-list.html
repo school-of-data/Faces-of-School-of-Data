@@ -1,12 +1,18 @@
-<div class="large-12 columns">
-	<h4>Members</h4>
-	<p>Click on each image to view the member profile</p>
-	<ul class="clearing-thumbs" data-clearing="">
-		<li ng-repeat="(ix, member) in memberList">
-		<a href="#member/{{ix}}">
-			<div class="img-member"><img ng-src="{{member.gsx$photo.$t}}" /></div>
-			{{member.gsx$name.$t}}
-		</a>
-		</li>		
-	</ul>
+<div class="container">
+	<div class="section">
+		<div class="row">
+			<h4>Members</h4>
+			<p>Click on each image to view the member profile</p>
+			<ul class="clearing-thumbs" data-clearing="">
+				<li class="col s4" ng-repeat="(ix, member) in memberList">
+				<a href="#member/{{ix}}">
+					<div class="img-member">
+						<img ng-src="http://www.tagetik.com/intouch2015/user.png" />
+					</div>
+					{{member.gsx$fullname.$t}}	
+				</a>
+				</li>		
+			</ul>
+		</div>
+	</div>
 </div>

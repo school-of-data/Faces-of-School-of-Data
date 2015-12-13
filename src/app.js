@@ -1,13 +1,23 @@
-var scodaFacesApp = angular.module('scodaFacesApp', ['ngRoute']);
+var scodaFacesApp = angular.module(
+  'scodaFacesApp', [
+    'ngRoute'
+  ]);
 
 // Configure the routing. The $routeProvider will be
 // automatically injected into the configurator.
 scodaFacesApp.config(
-    function( $routeProvider ){
+    function($routeProvider){
 
         $routeProvider
             .when(
-                "/", //Members
+                "/", //Default
+                {
+                   controller: 'MainCtrl',
+                   templateUrl: 'templates/default.html'
+                }
+            )
+            .when(
+                "/members", //Members
                 {
                    controller: 'MembersCtrl',
                    templateUrl: 'templates/member-list.html'
@@ -44,9 +54,9 @@ scodaFacesApp.config(
 scodaFacesApp.controller('MainCtrl', 
   function($scope, $http){
     //The spreadsheet loaded as default
-    $scope.spreadsheet = "1l8HkzCSeEiyzjFALpmOq5sFlfx514vkP7liM8Tjxt4w";
+    $scope.spreadsheet = "1n03jx2PcTbJHCHgQU9KSJl4xX0ffpJo3uXoU7X-JjBs";
     $scope.itemsList = {'members':[],'groups':[]};
-    $scope.get_data = function(spreadsheet, worksheet, type){      
+    $scope.get_data = function(spreadsheet, worksheet, type){
       // Using the http class to fetch data.
       $http({
         url: 'https://spreadsheets.google.com/feeds/list/'+spreadsheet+'/'+worksheet+'/public/values?alt=json',
@@ -56,7 +66,7 @@ scodaFacesApp.controller('MainCtrl',
         // On success, put the response into the $scope.summary variable. 
         $scope.summary = response;        
         //load the first list with all the members.         
-        for (i = 0; i < $scope.summary.data.feed.entry.length; i++) { 
+        for (i = 0; i < $scope.summary.data.feed.entry.length; i++) {
             $scope.itemsList[type].push($scope.summary.data.feed.entry[i]);
         }
       }
@@ -64,9 +74,7 @@ scodaFacesApp.controller('MainCtrl',
   }
   
   //load default spreadsheet the first time the page and controller are loaded.   
-  $scope.get_data($scope.spreadsheet,2,'members'); // Load members worksheet
-  $scope.get_data($scope.spreadsheet,1,'groups'); // Load groups worksheet
-
+  $scope.get_data($scope.spreadsheet,1,'members'); // Load members worksheet
 
 });
 
@@ -79,7 +87,6 @@ scodaFacesApp.controller('MembersCtrl',
 scodaFacesApp.controller('GroupsCtrl', 
     function($scope){
     $scope.groupList = $scope.itemsList['groups'];
-    console.log($scope.groupList)
 });
 
 // Member profile 
