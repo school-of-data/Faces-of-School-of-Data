@@ -4,12 +4,12 @@
 			<h4>Members</h4>
 			<p>Click on each image to view the member profile</p>
 			<ul class="clearing-thumbs" data-clearing="">
-				<li class="col s4" ng-repeat="(ix, member) in memberList">
-				<a href="#member/{{ix}}">
+				<li class="col s4" ng-repeat="member in members track by $index">
+				<a href="#member/{{$index}}">
 					<div class="img-member">
 						<img ng-src="http://www.tagetik.com/intouch2015/user.png" />
 					</div>
-					{{member.gsx$fullname.$t}}	
+					{{member.name}}
 				</a>
 				</li>		
 			</ul>
