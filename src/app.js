@@ -56,10 +56,35 @@ scodaFacesApp.controller('MainCtrl', function($scope, $http, data){
 });
 
 scodaFacesApp.controller('MembersCtrl', function($scope, $routeParams, data){
+scodaFacesApp.controller('MembersCtrl', function($scope, $routeParams, $http, data){
+
+    var map = L.map('map', {
+        center: [25.505, -0.09],
+        zoom: 2,
+        dragging: false,
+        zoomControl: false,
+        touchZoom: false,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        boxZoom: false
+    });
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        continuousWorld: false,
+        // this option disables loading tiles outside of the world bounds.
+        noWrap: true
+    }).addTo(map);
+
 
     data.members(function(err, members) {
         console.log(members);
         $scope.members = members;
+        members.forEach(function(member) {
+            $http.get('http://nominatim.openstreetmap.org/search?city=' + member.city + '&format=json').then(function(response) {
+                L.marker([parseFloat(response.data[0].lat), parseFloat(response.data[0].lon)]).addTo(map)
+                    .bindPopup(member.city + ', ' + member.country);
+            })
+        })
     })
 });
 
