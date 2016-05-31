@@ -52,6 +52,30 @@ a:hover{
     padding-top: 10px;
     color: black;
 }
+
+blockquote {
+    font-size: 3em;
+}
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+.rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
+
+.rating-active {
+    content: "\2605";
+}
+
+.member-big {
+    font-size: 2em;
+}
+
+
 .member-group-elements {
     border-left: 1px solid black;
     padding-left: 20px;
