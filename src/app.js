@@ -55,7 +55,6 @@ scodaFacesApp.controller('MainCtrl', function($scope, $http, data){
 
 });
 
-scodaFacesApp.controller('MembersCtrl', function($scope, $routeParams, data){
 scodaFacesApp.controller('MembersCtrl', function($scope, $routeParams, $http, data){
 
     var map = L.map('map', {
@@ -68,6 +67,11 @@ scodaFacesApp.controller('MembersCtrl', function($scope, $routeParams, $http, da
         doubleClickZoom: false,
         boxZoom: false
     });
+
+    $scope.activeSorting = '';
+    $scope.showGroups = false;
+    $scope.memberGroups = [];
+
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         continuousWorld: false,
@@ -86,6 +90,19 @@ scodaFacesApp.controller('MembersCtrl', function($scope, $routeParams, $http, da
             })
         })
     })
+
+    $scope.sortBy = function(property) {
+        $scope.members = _.sortBy($scope.members, property);
+        $scope.activeSorting = property;
+        $scope.showGroups = false;
+    }
+
+    $scope.groupBy = function(property) {
+        $scope.memberGroups =  _.groupBy($scope.members, property);
+        $scope.activeSorting = property;
+        $scope.showGroups = true;
+    }
+
 });
 
 
@@ -106,6 +123,15 @@ scodaFacesApp.controller('MemberCtrl',
 scodaFacesApp.controller('GroupCtrl',
   function($scope, $routeParams){    
     $scope.group = $scope.itemsList['groups'][$routeParams.id];
+});
+
+scodaFacesApp.filter('range', function() {
+    return function(val, range) {
+        range = parseInt(range);
+        for (var i = 0; i < range; i++)
+            val.push(i);
+        return val;
+    };
 });
 
 scodaFacesApp.factory('data', function($http) {
