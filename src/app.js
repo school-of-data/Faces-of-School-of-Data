@@ -44,6 +44,12 @@ scodaFacesApp.config(
                     templateUrl: 'templates/group.html'
                 }
             )
+            .when(
+                "/about/",
+                {
+                    templateUrl: 'templates/about.html'
+                }
+            )
         ;
 
     }
@@ -85,8 +91,9 @@ scodaFacesApp.controller('MembersCtrl', function($scope, $routeParams, $http, da
         $scope.members = members;
         members.forEach(function(member) {
             $http.get('http://nominatim.openstreetmap.org/search?city=' + member.city + '&format=json').then(function(response) {
-                L.marker([parseFloat(response.data[0].lat), parseFloat(response.data[0].lon)]).addTo(map)
-                    .bindPopup(member.city + ', ' + member.country);
+                if (response.data.length > 0)
+                    L.marker([parseFloat(response.data[0].lat), parseFloat(response.data[0].lon)]).addTo(map)
+                        .bindPopup(member.city + ', ' + member.country);
             })
         })
     })
