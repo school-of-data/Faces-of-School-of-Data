@@ -1,18 +1,117 @@
 <div class="container">
 	<div class="section">
+		<h4>Members</h4>
 		<div class="row">
-			<h4>Members</h4>
-			<p>Click on each image to view the member profile</p>
-			<ul class="clearing-thumbs" data-clearing="">
-				<li class="col s4" ng-repeat="(ix, member) in memberList">
-				<a href="#member/{{ix}}">
-					<div class="img-member">
-						<img ng-src="http://www.tagetik.com/intouch2015/user.png" />
-					</div>
-					{{member.gsx$fullname.$t}}	
-				</a>
+			<div id="map" class="hide-on-small-only"></div>
+		</div>
+		<div class="row">
+			<div class="col m3 s6">
+				<div class="center-align">
+					<a class="waves-effect waves-light btn" ng-click="groupBy('chapter')" ng-class="{blue: activeSorting=='chapter'}">Group</a>
+				</div>
+			</div>
+			<div class="col m3 s6">
+				<div class="center-align">
+					<a class="waves-effect waves-light btn" ng-click="sortBy('name')" ng-class="{blue: activeSorting=='name'}">Name</a>
+				</div>
+			</div>
+			<div class="col m3 s6">
+				<div class="center-align">
+					<a class="waves-effect waves-light btn" ng-click="groupBy('skill_data_pipeline')" ng-class="{blue: activeSorting=='skill_data_pipeline'}">Experience</a>
+				</div>
+			</div>
+			<div class="col m3 s6">
+				<div class="center-align">
+					<a class="waves-effect waves-light btn">Skill</a>
+				</div>
+			</div>
+
+		</div>
+		<div class="row">
+			<ul class="clearing-thumbs" data-clearing="" ng-hide="showGroups">
+				<li class="col m6 s12" ng-repeat="member in members track by $index" style="display: inline-block">
+					<a class="center-align" href="#member/{{$index}}">
+						<div class="row member-short-wrapper member-short-wrapper-link">
+							<div class="col m6 s12 img-member">
+								<img ng-src="http://www.tagetik.com/intouch2015/user.png" />
+							</div>
+							<div class="member-short-info left-align valign col m6 s12">
+								<div class="member-short-info-row">
+									<div class="member-short-info-cell">
+										<strong>Name:</strong>
+									</div>
+									<div class="member-short-info-cell">
+										{{member.name}}
+									</div>
+								</div>
+								<div class="member-short-info-row">
+									<div class="member-short-info-cell">
+										<strong>Chapter:</strong>
+									</div>
+									<div class="member-short-info-cell">
+										{{member.chapter}}
+									</div>
+								</div>
+								<div class="member-short-info-row">
+									<div class="member-short-info-cell">
+										<strong>Organisation:</strong>
+									</div>
+									<div class="member-short-info-cell">
+										{{member.organisation}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
 				</li>		
 			</ul>
+			<div class="groups" ng-show="showGroups">
+				<div class="member-group row" ng-repeat="(name, group) in memberGroups">
+					<div class="col m2">
+						<p>{{name}}</p>
+
+					</div>
+					<div class="member-group-elements col m10">
+						<ul class="clearing-thumbs" >
+							<li class="col m6 s12" ng-repeat=" member in group track by $index">
+								<a class="center-align" href="#member/{{$index}}">
+									<div class="row member-short-wrapper member-short-wrapper-link">
+										<div class="col m6 s12 img-member">
+											<img ng-src="http://www.tagetik.com/intouch2015/user.png" />
+										</div>
+										<div class="member-short-info left-align valign col m6 s12">
+											<div class="member-short-info-row">
+												<div class="member-short-info-cell">
+													<strong>Name:</strong>
+												</div>
+												<div class="member-short-info-cell">
+													{{member.name}}
+												</div>
+											</div>
+											<div class="member-short-info-row">
+												<div class="member-short-info-cell">
+													<strong>Chapter:</strong>
+												</div>
+												<div class="member-short-info-cell">
+													{{member.chapter}}
+												</div>
+											</div>
+											<div class="member-short-info-row">
+												<div class="member-short-info-cell">
+													<strong>Organisation:</strong>
+												</div>
+												<div class="member-short-info-cell">
+													{{member.organisation}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -12,3 +12,80 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+#map { height: 350px; }
+
+.btn {
+    margin-top: 10px;
+}
+
+.member-short-wrapper {
+    display: flex;
+    padding-bottom: 10px;
+    padding-top: 10px
+}
+
+.member-short-wrapper-link:hover {
+    background-color: #D1D3D2;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.member-short-info {
+    margin: auto;
+    display: table;
+}
+
+.img-member img {
+    max-width: 50%;
+}
+
+.member-short-info-row {
+    display: table-row;
+}
+
+.member-short-info-cell {
+    display: table-cell;
+    padding-right: 10px;
+    padding-top: 10px;
+    color: black;
+}
+
+blockquote {
+    font-size: 3em;
+}
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+.rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
+
+.rating-active {
+    content: "\2605";
+}
+
+.member-big {
+    font-size: 2em;
+}
+
+
+.member-group-elements {
+    border-left: 1px solid black;
+    padding-left: 20px;
+}
+
+.about-profile {
+    margin: 0 20px;
+}
+
+.about-profile-wrapper {
+    /*display: flex;*/
+    /*justify-content: center;*/
+}
